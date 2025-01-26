@@ -8,7 +8,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://youtube-community-event-1.onrender.com", {
+        const response = await axios.get("https://youtube-backend-kx3o.onrender.com/admin", {
           withCredentials: true,
         });
         setData(response.data);
