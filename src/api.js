@@ -5,8 +5,19 @@ const API = axios.create({
   withCredentials: true, // Include cookies/session
 });
 
-// Fetch all suggestions
-export const fetchSuggestions = () => API.get("/suggestions");
+export const fetchSuggestions = () => {
+    return fetch("https://https://youtube-backend-kx3o.onrender.com/suggestions", {
+        method: "GET",
+        credentials: "include",
+    })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error("Failed to fetch suggestions");
+            }
+            return res.json();
+        });
+};
+
 
 // Add a new suggestion
 export const addSuggestion = (title) =>

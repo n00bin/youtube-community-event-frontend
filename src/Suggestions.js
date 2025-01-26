@@ -4,7 +4,6 @@ import axios from "axios";
 import Spinner from "./Spinner";
 import Banner from "./banner";
 
-
 const Suggestions = () => {
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
@@ -15,26 +14,31 @@ const Suggestions = () => {
 
   // Fetch suggestions and state on component mount
   useEffect(() => {
+    let interval;
     const fetchState = async () => {
       try {
-        const response = await axios.get("https://youtube-backend-kx3o.onrender.com/state");
+        const response = await axios.get("https://youtube-backend-kx3o.onrender.com/state", {
+          withCredentials: true,
+        });
         setSuggestionsOpen(response.data.suggestionsOpen);
-        fetchSuggestionsData(); // Fetch initial suggestions
+        await fetchSuggestionsData(); // Fetch initial suggestions
+
+        // Set up polling every 5 seconds if suggestions are open
+        if (response.data.suggestionsOpen) {
+          interval = setInterval(() => {
+            fetchSuggestionsData();
+          }, 5000);
+        }
       } catch (error) {
         setErrorMessage("Failed to load application state.");
       }
     };
 
-  fetchState();
+    fetchState();
 
-  // Set up polling every 5 seconds
-  const interval = setInterval(() => {
-    fetchSuggestionsData();
-  }, 5000);
-
-  // Clean up interval on component unmount
-  return () => clearInterval(interval);
-}, []);
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
 
   // Fetch suggestions from the backend
   const fetchSuggestionsData = async () => {
@@ -63,7 +67,7 @@ const Suggestions = () => {
       setSuccessMessage("Suggestion added successfully!");
       fetchSuggestionsData(); // Refresh suggestions
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.error) {
+      if (error.response?.data?.error) {
         setErrorMessage(error.response.data.error);
       } else {
         setErrorMessage("An unexpected error occurred while adding the suggestion.");
@@ -82,7 +86,7 @@ const Suggestions = () => {
       setSuccessMessage("Suggestion upvoted successfully!");
       fetchSuggestionsData(); // Refresh suggestions
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.error) {
+      if (error.response?.data?.error) {
         setErrorMessage(error.response.data.error);
       } else {
         setErrorMessage("An unexpected error occurred while upvoting.");
@@ -91,8 +95,8 @@ const Suggestions = () => {
   };
 
   return (
-    <div className={"container"}>
-      <Banner isSuggestionsOpen={true} />
+    <div className="container">
+      <Banner isSuggestionsOpen={suggestionsOpen} />
       <h1>Community Game Suggestions</h1>
 
       {/* Success Message */}
@@ -112,7 +116,7 @@ const Suggestions = () => {
       {/* Add Suggestion Form */}
       {suggestionsOpen ? (
         <div>
-          {loading && <Spinner/>}
+          {loading && <Spinner />}
           <input
             type="text"
             value={newTitle}
@@ -120,28 +124,30 @@ const Suggestions = () => {
             placeholder="Suggest a game"
             aria-label="Game Suggestion Input"
           />
-<button
-  onClick={handleAdd}
-  disabled={loading || !newTitle.trim()}
-    style={{ backgroundColor: loading ? "black" : "lightgrey" }}
->
-  {loading ? "Adding..." : "Add Suggestion"}
-</button>
-
+          <button
+            onClick={handleAdd}
+            disabled={loading || !newTitle.trim()}
+            style={{
+              backgroundColor: loading ? "grey" : "lightblue",
+              cursor: loading ? "not-allowed" : "pointer",
+            }}
+          >
+            {loading ? "Adding..." : "Add Suggestion"}
+          </button>
         </div>
       ) : (
         <p>Suggestions are currently closed. Voting has started!</p>
       )}
 
       {/* Suggestions List */}
-      {suggestionsOpen && suggestions.length > 0 && (
+      {suggestions.length > 0 && (
         <ul>
           {suggestions.map((s) => (
             <li key={s.id}>
               {s.title} - {s.votes} votes
               <button
                 onClick={() => handleUpvote(s.id)}
-                disabled={!suggestionsOpen}
+                disabled={loading || !suggestionsOpen}
                 aria-label={`Upvote ${s.title}`}
               >
                 Upvote
