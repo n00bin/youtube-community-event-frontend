@@ -17,7 +17,7 @@ const Suggestions = () => {
   useEffect(() => {
     const fetchState = async () => {
       try {
-        const response = await axios.get("https://your-backend-url.onrender.com/state");
+        const response = await axios.get("https://youtube-backend-kx3o.onrender.com/state");
         setSuggestionsOpen(response.data.suggestionsOpen);
         fetchSuggestionsData(); // Fetch initial suggestions
       } catch (error) {
