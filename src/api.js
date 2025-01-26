@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://youtube-community-event-1.onrender.com", // Backend URL
+  baseURL: "https://youtube-backend-kx3o.onrender.com", // Backend URL
 });
 
 // Fetch all suggestions
