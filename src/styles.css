@@ -1,0 +1,39 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center; /* Center-align text */
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  display: flex;
+  justify-content: space-between; /* Align text and button */
+  align-items: center; /* Center button vertically */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+ul li button {
+  margin-left: 20px; /* Add spacing between text and button */
+}
+
+@media (max-width: 600px) {
+  ul li {
+    flex-direction: column; /* Stack text and button vertically on smaller screens */
+    align-items: flex-start;
+  }
+
+  ul li button {
+    margin-left: 0;
+    margin-top: 10px; /* Add spacing above the button */
+  }
+}
