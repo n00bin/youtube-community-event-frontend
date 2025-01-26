@@ -2,6 +2,7 @@ import axios from "axios";
 
 const API = axios.create({
   baseURL: "https://youtube-backend-kx3o.onrender.com", // Backend URL
+  withCredentials: true, // Allows cookies to be sent with requests
 });
 
 // Fetch all suggestions
@@ -22,3 +23,7 @@ export const fetchPoll = () => {
 export const votePoll = (id) => {
   return API.post(`/poll/${id}/vote`);
 };
+
+export const login = (username, password) =>
+  API.post("/login", { username, password });
+
