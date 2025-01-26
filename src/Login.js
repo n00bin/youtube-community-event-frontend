@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { login } from "./api";
-
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -12,7 +10,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("https://youtube-backend-kx3o.onrender.com", {
+      const response = await axios.post("https://youtube-backend-kx3o.onrender.com/login", {
         username,
         password,
       });
