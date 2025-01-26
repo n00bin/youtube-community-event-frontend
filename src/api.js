@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://youtube-backend-kx3o.onrender.com", // Backend URL
-  withCredentials: true, // Allows cookies to be sent with requests
+  baseURL: "https://your-backend-url.onrender.com", // Replace with your Render backend URL
+  withCredentials: true, // Ensure cookies are sent with requests
 });
 
 // Fetch all suggestions

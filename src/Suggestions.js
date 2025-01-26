@@ -17,7 +17,7 @@ const Suggestions = () => {
   useEffect(() => {
     const fetchState = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000/state");
+        const response = await axios.get("https://your-backend-url.onrender.com/state");
         setSuggestionsOpen(response.data.suggestionsOpen);
         fetchSuggestionsData(); // Fetch initial suggestions
       } catch (error) {
