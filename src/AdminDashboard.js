@@ -6,11 +6,14 @@ const AdminDashboard = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchAdminData = async () => {
       try {
-        const response = await axios.get("https://youtube-backend-kx3o.onrender.com/admin", {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          "https://youtube-backend-kx3o.onrender.com/admin",
+          {
+            withCredentials: true, // Ensures cookies are included for session validation
+          }
+        );
         setData(response.data);
       } catch (error) {
         if (error.response && error.response.status === 403) {
@@ -21,7 +24,7 @@ const AdminDashboard = () => {
       }
     };
 
-    fetchData();
+    fetchAdminData();
   }, []);
 
   if (message) return <p>{message}</p>;
