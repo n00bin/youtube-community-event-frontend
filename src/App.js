@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     const fetchState = async () => {
       try {
-        const response = await fetch("https://your-backend-url/state"); // Use your backend URL here
+        const response = await fetch("https://youtube-backend-kx3o.onrender.com"); // Use your backend URL here
         const data = await response.json();
         setSuggestionsOpen(data.suggestionsOpen);
         setPollOpen(data.pollOpen);
