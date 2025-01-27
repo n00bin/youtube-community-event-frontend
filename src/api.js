@@ -6,7 +6,7 @@ const API = axios.create({
 });
 
 export const fetchSuggestions = () => {
-    return fetch("https://https://youtube-backend-kx3o.onrender.com/suggestions", {
+    return fetch("//https://youtube-backend-kx3o.onrender.com/suggestions", {
         method: "GET",
         credentials: "include",
     })
