@@ -1,23 +1,18 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://youtube-backend-kx3o.onrender.com", // Correct backend URL
-  withCredentials: true, // Include cookies/session
+  baseURL: "https://youtube-backend-kx3o.onrender.com", // Correct format
+  withCredentials: true,
 });
 
 export const fetchSuggestions = () => {
-    return fetch("//https://youtube-backend-kx3o.onrender.com/suggestions", {
-        method: "GET",
-        credentials: "include",
-    })
-        .then((res) => {
-            if (!res.ok) {
-                throw new Error("Failed to fetch suggestions");
-            }
-            return res.json();
-        });
+  return API.get("/suggestions")
+    .then((response) => response.data) // Extract data
+    .catch((error) => {
+      console.error("Error fetching suggestions:", error);
+      throw new Error("Failed to fetch suggestions");
+    });
 };
-
 
 // Add a new suggestion
 export const addSuggestion = (title) =>
