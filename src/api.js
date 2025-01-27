@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://youtube-frontend-ke3uzemec-n00bins-projects.vercel.app", // Correct format
-  withCredentials: true,
+    baseURL: "https://youtube-backend-kx3o.onrender.com", // Backend URL
+    withCredentials: true,
 });
 
 export const fetchSuggestions = () => {
