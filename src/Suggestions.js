@@ -14,6 +14,8 @@ const Suggestions = () => {
 
   // Fetch suggestions and state on component mount
   useEffect(() => {
+    console.log("Suggestions state:", suggestions);
+  console.log("Suggestions open:", suggestionsOpen);
     let interval;
 
     const fetchState = async () => {
