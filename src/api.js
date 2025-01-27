@@ -8,13 +8,14 @@ const API = axios.create({
 export const fetchSuggestions = async () => {
     try {
         const response = await axios.get("/suggestions", { withCredentials: true });
-        console.log("API Fetch Response:", response.data);
+        console.log("Full API Response:", response); // Log the full response
         return response.data;
     } catch (error) {
         console.error("Error fetching suggestions:", error);
         throw error;
     }
 };
+
 
 
 // Add a new suggestion
