@@ -47,16 +47,17 @@ const Suggestions = () => {
   }, []);
 
   // Fetch suggestions from the backend
-  const fetchSuggestionsData = async () => {
-    try {
-      const response = await fetchSuggestions();
-      setSuggestions(response.data || []); // Ensure it's always an array
-      setErrorMessage(""); // Clear any previous errors
-    } catch (error) {
-      console.error("Error fetching suggestions:", error);
-      setErrorMessage("Failed to load suggestions. Please try again.");
-    }
-  };
+const fetchSuggestionsData = async () => {
+  try {
+    const response = await fetchSuggestions();
+    console.log("API Response:", response.data); // Add this line
+    setSuggestions(response.data);
+    setErrorMessage(""); // Clear any previous errors
+  } catch (error) {
+    setErrorMessage("Failed to load suggestions.");
+  }
+};
+
 
   // Add a new suggestion
   const handleAdd = async () => {
