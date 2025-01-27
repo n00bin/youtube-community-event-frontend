@@ -5,14 +5,17 @@ const API = axios.create({
     withCredentials: true,
 });
 
-export const fetchSuggestions = () => {
-  return API.get("/suggestions")
-    .then((response) => response.data) // Extract data
-    .catch((error) => {
-      console.error("Error fetching suggestions:", error);
-      throw new Error("Failed to fetch suggestions");
-    });
+export const fetchSuggestions = async () => {
+    try {
+        const response = await axios.get("/suggestions", { withCredentials: true });
+        console.log("API Fetch Response:", response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching suggestions:", error);
+        throw error;
+    }
 };
+
 
 // Add a new suggestion
 export const addSuggestion = (title) =>
